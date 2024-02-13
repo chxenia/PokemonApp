@@ -1,9 +1,15 @@
 import Foundation
 
 class PokemonPresenter: ObservableObject {
+    public var view: PokemonView?
+    public let interactor: PokemonInteractor
+    
     @Published var pokemons: [Pokemon] = []
     
-    private let interactor = PokemonInteractor()
+    init(interactor: PokemonInteractor, view: PokemonView?) {
+        self.view = view
+        self.interactor = interactor
+    }
     
     func fetchPokemonList(page: Int) {
         interactor.fetchPokemonList(page: page) { [weak self] result in
