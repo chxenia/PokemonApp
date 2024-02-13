@@ -13,7 +13,7 @@ struct DetailView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            LinearGradient(gradient: Gradient(colors: [TypeColors.colors[pokemonInfo?.types.first?.type.name ?? "grass"] ?? .green, TypeColors.colors[pokemonInfo?.types.first?.type.name ?? "grass"] ?? .blue]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .frame(width: 200, height: 200)
                 .clipShape(Circle())
                 .shadow(radius: 10)
@@ -63,7 +63,7 @@ struct DetailView: View {
                         ForEach(pokemonInfo.types.indices, id: \.self) { index in
                            
                             Text("\(pokemonInfo.types[index].type.name)")
-                                .foregroundColor(.green)
+                                .foregroundColor(TypeColors.colors[pokemonInfo.types[index].type.name] ?? .green)
                                 .padding(7)
                                 .background(
                                     Capsule()
@@ -71,7 +71,7 @@ struct DetailView: View {
                                         .frame(width: 70)
                                         .overlay(
                                             Capsule()
-                                                .stroke(Color.green, lineWidth: 2)
+                                                .stroke(TypeColors.colors[pokemonInfo.types[index].type.name] ?? .green, lineWidth: 2)
                                         )
                                 )
                         }
