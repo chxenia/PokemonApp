@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Pokemon: Codable {
     var name: String
     var url: String
@@ -32,3 +31,4 @@ struct PokemonInfo: Codable {
         let name: String
     }
 }
+
