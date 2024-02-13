@@ -16,7 +16,7 @@ struct PokemonView: View {
         NavigationView {
             VStack {
                 List(presenter.pokemons, id: \.name) { pokemon in
-                    NavigationLink(destination: DetailView()) {
+                    NavigationLink(destination: DetailView(url: pokemon.url)) {
                         Text(pokemon.name)
                     }
                 }
