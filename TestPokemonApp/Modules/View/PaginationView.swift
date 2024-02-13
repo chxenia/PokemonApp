@@ -11,6 +11,8 @@ struct PaginationView: View {
     @Binding var currentPage: Int
     let totalPageCount: Int
     let action: (Int) -> Void
+    let displayPageCount: Int
+    let presenter: PaginationPresenter
     
     var body: some View {
         HStack(spacing: 2) {
@@ -25,7 +27,7 @@ struct PaginationView: View {
             }
             .disabled(currentPage == 1)
             
-            ForEach(paginationRange(), id: \.self) { page in
+            ForEach(presenter.calculatePaginationRange(currentPage: currentPage, totalPageCount: totalPageCount, displayPageCount: displayPageCount), id: \.self) { page in
                 Button("\(page)") {
                     currentPage = page
                     action(page)

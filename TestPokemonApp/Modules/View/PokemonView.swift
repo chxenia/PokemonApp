@@ -21,10 +21,8 @@ struct PokemonView: View {
                         Text(pokemon.name)
                     }
                 }
-     
-                PaginationView(currentPage: $currentPage, totalPageCount: totalPageCount) { page in
-                                    fetchPokemonList(page: page)
-                }
+                
+                PaginationView(currentPage: $currentPage, totalPageCount: totalPageCount, action: fetchPokemonList, displayPageCount: 4, presenter: PaginationPresenter(interactor: PaginationInteractor()))
             }
             .onAppear {
                 fetchPokemonList(page: currentPage)
