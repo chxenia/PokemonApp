@@ -12,36 +12,87 @@ struct DetailView: View {
     @State private var pokemonInfo: PokemonInfo?
     
     var body: some View {
-        VStack {
-            if let pokemonInfo = pokemonInfo {
-                AsyncImage(url: URL(string: pokemonInfo.sprites.front_default ?? "")) { phase in
-                    if let image = phase.image {
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 200, height: 200)
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                .frame(width: 200, height: 200)
+                .clipShape(Circle())
+                .shadow(radius: 10)
+                .blur(radius: 85)
+                .offset(x: 0, y: -50)
+            
+            VStack {
+                Spacer()
+                if let pokemonInfo = pokemonInfo {
+                    AsyncImage(url: URL(string: pokemonInfo.sprites.front_default ?? "")) { phase in
+                        if let image = phase.image {
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+                            
+                        } else if phase.error != nil {
+                            Text("Failed to load image")
+                        } else {
+                            
+                            ProgressView()
+                        }
                         
-                    } else if phase.error != nil {
-                        Text("Failed to load image")
-                    } else {
-                        
-                        ProgressView()
                     }
                     
+                    HStack(spacing: 20){
+                        VStack {
+                            Text("\(String(format: "%.0f", pokemonInfo.height * 10)) cm")
+                            Text("Height")
+                                .foregroundColor(.gray)
+                            
+                        }
+                        
+                        VStack {
+                            Text("\(String(format: "%.0f", pokemonInfo.weight / 10)) kg")
+                            Text("Weight")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .offset(y: -20)
+                    .font(.caption)
+                    
+                    Text("\(pokemonInfo.name.capitalized)")
+                        .font(.largeTitle.bold())
+                    
+                    HStack(spacing: 20){
+                        ForEach(pokemonInfo.types.indices, id: \.self) { index in
+                           
+                            Text("\(pokemonInfo.types[index].type.name)")
+                                .foregroundColor(.green)
+                                .padding(7)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.clear)
+                                        .frame(width: 70)
+                                        .overlay(
+                                            Capsule()
+                                                .stroke(Color.green, lineWidth: 2)
+                                        )
+                                )
+                        }
+                    }
+                    
+
+                   
+                    
+                    Spacer()
+                    
+                } else {
+                    ProgressView("Loading...")
                 }
-                
-                Text("Pokemon: \(pokemonInfo.name)")
-                Text("Height: \(String(format: "%.2f", pokemonInfo.height / 10))")
-                Text("Pokemon: \(pokemonInfo.weight)")
-                Text("Type: \(pokemonInfo.types.map { $0.type.name }.joined(separator: ", "))")
-                
-            } else {
-                ProgressView("Loading...")
             }
+            .onAppear {
+                loadData()
+            }
+            
         }
-        .onAppear {
-            loadData()
-        }
+        .preferredColorScheme(.dark)
+
     }
     
     func loadData() {
@@ -61,6 +112,6 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(url: "")
+        DetailView(url: "https://pokeapi.co/api/v2/pokemon/3/")
     }
 }

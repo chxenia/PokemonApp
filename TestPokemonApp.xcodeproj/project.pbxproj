@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A71CBA0B2B7BE4C500C15E24 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71CBA0A2B7BE4C500C15E24 /* ColorTheme.swift */; };
+		A71CBA0D2B7BEFDE00C15E24 /* TypeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71CBA0C2B7BEFDE00C15E24 /* TypeColors.swift */; };
 		A7EFE7092B7B7FFD00542B7F /* TestPokemonAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EFE7082B7B7FFD00542B7F /* TestPokemonAppApp.swift */; };
 		A7EFE70B2B7B7FFD00542B7F /* PokemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EFE70A2B7B7FFD00542B7F /* PokemonView.swift */; };
 		A7EFE70D2B7B800000542B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7EFE70C2B7B800000542B7F /* Assets.xcassets */; };
@@ -44,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A71CBA0A2B7BE4C500C15E24 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
+		A71CBA0C2B7BEFDE00C15E24 /* TypeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeColors.swift; sourceTree = "<group>"; };
 		A7EFE7052B7B7FFD00542B7F /* TestPokemonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestPokemonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EFE7082B7B7FFD00542B7F /* TestPokemonAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPokemonAppApp.swift; sourceTree = "<group>"; };
 		A7EFE70A2B7B7FFD00542B7F /* PokemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonView.swift; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 			children = (
 				A7EFE7382B7B822500542B7F /* Pokemon.swift */,
 				A7EFE73E2B7B844400542B7F /* Response.swift */,
+				A71CBA0A2B7BE4C500C15E24 /* ColorTheme.swift */,
+				A71CBA0C2B7BEFDE00C15E24 /* TypeColors.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -340,6 +346,8 @@
 				A7EFE73D2B7B826B00542B7F /* PokemonPresenter.swift in Sources */,
 				A7EFE7092B7B7FFD00542B7F /* TestPokemonAppApp.swift in Sources */,
 				A7EFE7412B7B858A00542B7F /* DetailView.swift in Sources */,
+				A71CBA0D2B7BEFDE00C15E24 /* TypeColors.swift in Sources */,
+				A71CBA0B2B7BE4C500C15E24 /* ColorTheme.swift in Sources */,
 				A7EFE7452B7B8A0900542B7F /* ContentView.swift in Sources */,
 				A7EFE74B2B7B97AA00542B7F /* PaginationPresenter.swift in Sources */,
 				A7EFE73B2B7B824700542B7F /* PokemonInteractor.swift in Sources */,

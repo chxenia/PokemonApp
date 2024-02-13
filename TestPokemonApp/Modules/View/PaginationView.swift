@@ -49,7 +49,5 @@ struct PaginationView: View {
             .disabled(currentPage == totalPageCount)
         }
     }
-    
- 
 }
 

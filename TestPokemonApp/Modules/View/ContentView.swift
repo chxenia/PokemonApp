@@ -8,17 +8,21 @@ struct ContentView: View {
             switch router.currentRoute {
             case .home:
                 PokemonView(presenter: PokemonPresenter(interactor: PokemonInteractor(), view: nil), router: router)
-                    .navigationTitle("Pokemon Home")
+                    .navigationTitle("Pokemon App")
+
             case .detail(let pokemon):
                 DetailView(url: pokemon.url)
-                    .navigationTitle(pokemon.name)
+                    .navigationTitle(pokemon.name.capitalized)
                     .navigationBarItems(trailing: Button(action: {
                         router.navigate(to: .home)
                     }, label: {
                         Text("Back to Home")
                     }))
             }
+            
         }
+        .preferredColorScheme(.dark)
+
     }
 }
 

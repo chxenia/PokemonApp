@@ -14,21 +14,19 @@ struct PokemonView: View {
     @State private var totalPageCount = 66
     
     var body: some View {
-        NavigationView {
-            VStack {
-                List(presenter.pokemons, id: \.name) { pokemon in
-                    NavigationLink(destination: DetailView(url: pokemon.url)) {
-                        Text(pokemon.name)
-                    }
+        VStack {
+            List(presenter.pokemons, id: \.name) { pokemon in
+                NavigationLink(destination: DetailView(url: pokemon.url)) {
+                    Text(pokemon.name.capitalized)
                 }
-                
-                PaginationView(currentPage: $currentPage, totalPageCount: totalPageCount, action: fetchPokemonList, displayPageCount: 4, presenter: PaginationPresenter(interactor: PaginationInteractor()))
             }
-            .onAppear {
-                fetchPokemonList(page: currentPage)
-            }
-            .navigationTitle("Pokemon App")
+            
+            PaginationView(currentPage: $currentPage, totalPageCount: totalPageCount, action: fetchPokemonList, displayPageCount: 4, presenter: PaginationPresenter(interactor: PaginationInteractor()))
         }
+        .onAppear {
+            fetchPokemonList(page: currentPage)
+        }
+        
     }
     
     private func fetchPokemonList(page: Int) {
