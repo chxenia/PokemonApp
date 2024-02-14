@@ -39,7 +39,7 @@ struct DetailView: View {
                         
                     }
                     
-                    HStack(spacing: 20){
+                    HStack(spacing: 50){
                         VStack {
                             Text("\(String(format: "%.0f", pokemonInfo.height * 10)) cm")
                             Text("Height")
@@ -53,7 +53,6 @@ struct DetailView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-                    .offset(y: -20)
                     .font(.caption)
                     
                     Text("\(pokemonInfo.name.capitalized)")
