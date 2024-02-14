@@ -10,6 +10,13 @@ import SwiftUI
 struct DetailView: View {
     let url: String
     @State private var pokemonInfo: PokemonInfo?
+
+    private var pokemonNumber: String {
+        guard let number = Int(url.replacingOccurrences(of: "https://pokeapi.co/api/v2/pokemon/", with: "").replacingOccurrences(of: "/", with: "")) else {
+            return "N/A"
+        }
+        return "#\(number)"
+    }
     
     var body: some View {
         ZStack {
@@ -21,7 +28,11 @@ struct DetailView: View {
                 .offset(x: 0, y: -50)
             
             VStack {
+                Text("\(pokemonNumber)")
+                    .font(.largeTitle.bold())
+                
                 Spacer()
+                
                 if let pokemonInfo = pokemonInfo {
                     AsyncImage(url: URL(string: pokemonInfo.sprites.front_default ?? "")) { phase in
                         if let image = phase.image {
@@ -39,7 +50,12 @@ struct DetailView: View {
                         
                     }
                     
-                    HStack(spacing: 50){
+                    
+                    Text("\(pokemonInfo.name.capitalized)")
+                        .font(.largeTitle.bold())
+                    
+                    
+                    HStack(spacing: 20){
                         VStack {
                             Text("\(String(format: "%.0f", pokemonInfo.height * 10)) cm")
                             Text("Height")
@@ -54,11 +70,9 @@ struct DetailView: View {
                         }
                     }
                     .font(.caption)
+                    .padding(.bottom)
                     
-                    Text("\(pokemonInfo.name.capitalized)")
-                        .font(.largeTitle.bold())
-                    
-                    HStack(spacing: 20){
+                    HStack(spacing: 50){
                         ForEach(pokemonInfo.types.indices, id: \.self) { index in
                            
                             Text("\(pokemonInfo.types[index].type.name)")
@@ -111,6 +125,6 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(url: "https://pokeapi.co/api/v2/pokemon/3/")
+        DetailView(url: "https://pokeapi.co/api/v2/pokemon/6/")
     }
 }
