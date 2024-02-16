@@ -72,7 +72,7 @@ struct DetailView: View {
                     .font(.caption)
                     .padding(.bottom)
                     
-                    HStack(spacing: 50){
+                    HStack(spacing: 30){
                         ForEach(pokemonInfo.types.indices, id: \.self) { index in
                            
                             Text("\(pokemonInfo.types[index].type.name)")
