@@ -109,7 +109,7 @@ struct DetailView: View {
     }
     
     func loadData() {
-        PokemonInteractor().fetchPokemonDetail(url: url) { result in
+        PokemonInteractor(pokemonService: PokemonService(networkService: NetworkService())).fetchPokemonDetail(url: url) { result in
             switch result {
             case .success(let info):
                 DispatchQueue.main.async {

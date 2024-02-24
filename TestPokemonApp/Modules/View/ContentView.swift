@@ -15,7 +15,7 @@ struct ContentView: View {
                 } else {
                     switch router.currentRoute {
                     case .home:
-                        PokemonView(presenter: PokemonPresenter(interactor: PokemonInteractor(), view: nil), router: router)
+                        PokemonView(presenter: PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService(networkService: NetworkService())), view: nil), router: router)
                             .navigationTitle("Pokemon App")
                     case .detail(let pokemon):
                         DetailView(url: pokemon.url)
@@ -37,7 +37,7 @@ struct ContentView: View {
     
     private func loadData() {
         isLoading = true
-        PokemonInteractor().fetchPokemonList(page: 1) { result in
+        PokemonInteractor(pokemonService: PokemonService(networkService: NetworkService())).fetchPokemonList(page: 1) { result in
             isLoading = false
             switch result {
             case .success(let pokemon):

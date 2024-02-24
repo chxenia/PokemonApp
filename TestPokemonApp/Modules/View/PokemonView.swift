@@ -37,6 +37,6 @@ struct PokemonView: View {
 
 struct PokemonView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonView(presenter: PokemonPresenter(interactor: PokemonInteractor(), view: nil), router: PokemonRouter())
+        PokemonView(presenter: PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService(networkService: NetworkService())), view: nil), router: PokemonRouter())
     }
 }
