@@ -1,39 +1,50 @@
 import SwiftUI
+import CoreData
+
 struct ContentView: View {
-    @ObservedObject var router = PokemonRouter()
+//    @ObservedObject var router = PokemonRouter()
+    @ObservedObject var networkManager = NetworkMonitor()
     @State private var isLoading = false
     @State private var error: Error?
     @State private var pokemon: Pokemon?
+    @State private var isOffline: Bool = false
     
     var body: some View {
         NavigationView {
             Group {
-                if isLoading {
-                    ProgressView()
-                } else {
-                    switch router.currentRoute {
-                    case .home:
-                        PokemonView(presenter: PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService(networkService: NetworkService())), view: nil), router: router)
-                            .navigationTitle("Pokemon App")
-                    case .detail(let pokemon):
-                        DetailView(url: pokemon.url)
-                            .navigationTitle(pokemon.name.capitalized)
-                            .navigationBarItems(trailing: Button(action: {
-                                router.navigate(to: .home)
-                            }, label: {
-                                Text("Back to Home")
-                            }))
+                if networkManager.isConnected {
+                    if isLoading {
+                        ProgressView()
+                    } else if let pokemon = pokemon {
+                        PokemonView(presenter: PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService(networkService: NetworkService())), pokemonService: PokemonService(networkService: NetworkService())))
+                            .navigationTitle("PokemonApp")
+                    } else if let error = error {
+                        Text("Error: \(error.localizedDescription)")
+                    } else {
+                        Text("No data available")
                     }
                 }
             }
             .onAppear {
-                loadData()
+                if networkManager.isConnected {
+                    loadData()
+                } else {
+                    isOffline = true
+//                    loadFromCoreData()
+                }
             }
+//            .alert(isPresented: $isOffline) {
+//                Alert(title: Text("Offline"), message: Text("Your app is running in offline mode"), dismissButton: .default(Text("OK")))
+//            }
         }
         .preferredColorScheme(.dark)
     }
     
     private func loadData() {
+        guard networkManager.isConnected else {
+            return
+        }
+        
         isLoading = true
         PokemonInteractor(pokemonService: PokemonService(networkService: NetworkService())).fetchPokemonList(page: 1) { result in
             isLoading = false

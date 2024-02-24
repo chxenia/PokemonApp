@@ -3,16 +3,17 @@ import Foundation
 class PokemonPresenter: ObservableObject {
     public var view: PokemonView?
     public let interactor: PokemonInteractor
+    private let pokemonService: PokemonService
     
     @Published var pokemons: [Pokemon] = []
     
-    init(interactor: PokemonInteractor, view: PokemonView?) {
-        self.view = view
+    init(interactor: PokemonInteractor, pokemonService: PokemonService) {
         self.interactor = interactor
+        self.pokemonService = pokemonService
     }
     
     func fetchPokemonList(page: Int) {
-        interactor.fetchPokemonList(page: page) { [weak self] result in
+        pokemonService.fetchPokemonList(page: page) { [weak self] result in
             switch result {
             case .success(let pokemons):
                 DispatchQueue.main.async {

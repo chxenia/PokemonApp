@@ -1,15 +1,8 @@
-//
-//  ContentView.swift
-//  TestPokemonApp
-//
-//  Created by Xenia on 13.02.2024.
-//
-
 import SwiftUI
 
 struct PokemonView: View {
     @ObservedObject var presenter: PokemonPresenter
-    @ObservedObject var router: PokemonRouter
+//    @ObservedObject var router: PokemonRouter
     @State private var currentPage = 1
     @State private var totalPageCount = 66
     
@@ -24,9 +17,8 @@ struct PokemonView: View {
             PaginationView(currentPage: $currentPage, totalPageCount: totalPageCount, action: fetchPokemonList, displayPageCount: 4, presenter: PaginationPresenter(interactor: PaginationInteractor()))
         }
         .onAppear {
-            fetchPokemonList(page: currentPage)
+            presenter.fetchPokemonList(page: currentPage)
         }
-        
     }
     
     private func fetchPokemonList(page: Int) {
@@ -34,9 +26,10 @@ struct PokemonView: View {
     }
 }
 
-
 struct PokemonView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonView(presenter: PokemonPresenter(interactor: PokemonInteractor(pokemonService: PokemonService(networkService: NetworkService())), view: nil), router: PokemonRouter())
+        let interactor = PokemonInteractor(pokemonService: PokemonService(networkService: NetworkService()))
+        let presenter = PokemonPresenter(interactor: interactor, pokemonService: PokemonService(networkService: NetworkService()))
+        return PokemonView(presenter: presenter)
     }
 }

@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import CoreData
 
-struct Response: Codable {
+struct Response: Codable{
     var count: Int
     var next: String?
     var previous: String?

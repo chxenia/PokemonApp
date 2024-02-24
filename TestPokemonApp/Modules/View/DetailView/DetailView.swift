@@ -44,6 +44,7 @@ struct DetailView: View {
                 
                 if let pokemonInfo = pokemonInfo {
                     ImageView(imageURL: pokemonInfo.sprites.front_default ?? "")
+                        .frame(width: 200,height: 200)
                     
                     Text("\(pokemonInfo.name.capitalized)")
                         .font(.largeTitle.bold())
