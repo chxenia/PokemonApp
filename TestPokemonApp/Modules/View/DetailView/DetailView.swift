@@ -34,6 +34,7 @@ struct DetailView: View {
     
     var body: some View {
         ZStack {
+            
             GradientView(colors: [TypeColors.colors[pokemonInfo?.types.first?.type.name ?? "grass"] ?? .green, TypeColors.colors[pokemonInfo?.types.first?.type.name ?? "grass"] ?? .blue], size: CGSize(width: 200, height: 200))
             
             VStack {

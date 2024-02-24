@@ -13,16 +13,18 @@ enum NetworkError: Error {
 }
 
 class NetworkService {
-    func fetchData(from url: URL, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+    func fetchData(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                completion(.failure(.networkError(error)))
+                completion(.failure(error))
                 return
             }
             
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
-                completion(.failure(.invalidURL))
+                let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+                let error = NSError(domain: "", code: statusCode, userInfo: nil)
+                completion(.failure(error))
                 return
             }
             
@@ -32,4 +34,3 @@ class NetworkService {
         }.resume()
     }
 }
-
