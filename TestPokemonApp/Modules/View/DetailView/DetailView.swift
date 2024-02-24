@@ -22,6 +22,7 @@ struct ErrorView: View {
 }
 
 struct DetailView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let url: String
     @State private var pokemonInfo: PokemonInfo?
     
@@ -58,6 +59,15 @@ struct DetailView: View {
                     LoadingView()
                 }
             }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                    Text("Back")
+                }
+            })
             .onAppear {
                 loadData()
             }
