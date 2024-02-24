@@ -11,6 +11,12 @@ struct Constants {
     struct API {
         static let baseURL = "https://pokeapi.co/api/v2/"
         static let pokemonPath = "pokemon"
+        
+        static func pokemonURL(forID id: Int) -> URL? {
+            var components = URLComponents(string: baseURL)
+            components?.path = "\(pokemonPath)/\(id)/"
+            return components?.url
+        }
     }
     
     struct Error {

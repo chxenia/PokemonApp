@@ -10,8 +10,6 @@ struct ContentView: View {
             Group {
                 if isLoading {
                     ProgressView()
-                } else if let error = error {
-                    ErrorView(error: error)
                 } else {
                     switch router.currentRoute {
                     case .home:
